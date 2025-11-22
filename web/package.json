@@ -1,0 +1,29 @@
+{
+  "name": "ez2study-web",
+  "version": "1.0.0",
+  "description": "Ez2Study - AI智能学习视频生成平台 Web前端",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "serve": "python -m http.server 8080"
+  },
+  "keywords": [
+    "AI",
+    "教育",
+    "学习",
+    "视频生成",
+    "智能教学"
+  ],
+  "author": "Ez2Study Team",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "vite": "^5.0.0"
+  },
+  "dependencies": {
+    "tailwindcss": "^3.4.0",
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.4.0"
+  }
+}
