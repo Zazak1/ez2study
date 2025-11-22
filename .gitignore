@@ -1,0 +1,109 @@
+# 操作系统生成的文件
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE和编辑器文件
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 依赖目录
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 构建输出
+dist/
+build/
+.next/
+.nuxt/
+.output/
+.vercel/
+
+# 环境变量文件
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 日志文件
+logs
+*.log
+
+# 临时文件
+*.tmp
+*.temp
+
+# 缓存文件
+.cache/
+.parcel-cache/
+
+# 测试覆盖率报告
+coverage/
+.nyc_output/
+
+# 移动应用相关
+# React Native
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+
+# Android
+*.apk
+*.aab
+local.properties
+android/app/build/
+android/gradle/
+android/.gradle/
+
+# iOS
+ios/build/
+ios/Pods/
+*.xcworkspace
+*.xcuserdata
+
+# Flutter
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+
+# 数据库文件
+*.db
+*.sqlite
+*.sqlite3
+
+# 备份文件
+*.bak
+*.backup
+
+# 压缩文件
+*.zip
+*.tar.gz
+*.rar
+
+# 文档和设计文件
+*.psd
+*.ai
+*.sketch
+*.docx
+*.doc
+*.pdf
+
+# 项目无关文件夹
+无关紧要/
