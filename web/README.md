@@ -1,6 +1,6 @@
 # Ez2Study Web Frontend
 
-Ez2Study AI智能学习视频生成平台的Web前端应用。
+Ez2Study AI智能学习视频生成平台的Web前端应用，基于 React + Vite + Tailwind CSS 构建。
 
 ## 🚀 快速开始
 
@@ -18,7 +18,7 @@ npm install
 ```bash
 npm run dev
 ```
-访问 http://localhost:3000
+访问 http://localhost:5173
 
 ### 构建生产版本
 ```bash
@@ -35,128 +35,68 @@ npm run preview
 ```
 web/
 ├── src/
-│   ├── styles/
-│   │   └── main.css          # 主样式文件
-│   └── js/
-│       └── main.js           # 主JavaScript文件
-├── assets/
-│   └── favicon.svg           # 网站图标
-├── index.html                # 主HTML文件
-├── package.json              # 项目配置
-├── vite.config.js           # Vite配置
-└── README.md                # 项目说明
+│   ├── components/      # UI 组件
+│   │   ├── Navbar.jsx   # 顶部导航
+│   │   ├── Hero.jsx     # 英雄区域
+│   │   ├── Features.jsx # 功能特性
+│   │   ├── Footer.jsx   # 页脚
+│   │   ├── LoginModal.jsx    # 登录模态框
+│   │   └── RegisterModal.jsx # 注册模态框
+│   ├── lib/             # 工具函数库
+│   ├── App.jsx          # 主应用组件
+│   ├── main.jsx         # 入口文件
+│   └── index.css        # 全局样式 (Tailwind imports)
+├── public/              # 静态资源
+│   ├── favicon.svg
+│   └── grid.svg
+├── index.html           # 主HTML文件
+├── package.json         # 项目配置
+├── vite.config.js       # Vite配置
+└── tailwind.config.js   # Tailwind配置
 ```
 
 ## 🎨 设计特色
 
 ### 视觉风格
-- **科技感设计**: 深色主题配合渐变色彩
-- **流畅动画**: CSS3动画和JavaScript交互效果
-- **响应式布局**: 适配桌面端和移动端
+- **科技感设计**: 深色背景 (`#0f0f23`) 配合高饱和度渐变光效
+- **玻璃拟态**: 使用 Backdrop Filter 实现磨砂玻璃质感
+- **流畅动画**: 集成 Framer Motion 实现复杂的交互动画
 
-### 核心功能
-- ✨ **科技感首页**: 展示平台核心价值和功能特色
-- 🔐 **用户认证**: 登录/注册模态框，支持表单验证
-- 🎛️ **功能展示**: 三大核心模块的详细介绍
-- 📱 **响应式设计**: 完美适配各种设备尺寸
+### 核心组件
+- **Navbar**: 响应式导航栏，支持滚动变色和移动端菜单
+- **Hero**: 带有动态微交互和入场动画的首屏展示
+- **Auth Modals**: 优雅的弹出式登录/注册窗口
+- **Features**: 网格布局的功能特性展示
 
 ## 🛠️ 技术栈
 
-- **HTML5**: 语义化标签，SEO友好
-- **CSS3**: 
-  - CSS变量系统
-  - Flexbox/Grid布局
-  - 动画和过渡效果
-  - 响应式设计
-- **JavaScript (ES6+)**:
-  - 模块化代码结构
-  - 事件处理和DOM操作
-  - 本地存储管理
-  - 表单验证
-- **Vite**: 快速开发和构建工具
-
-## 🎯 功能模块
-
-### 1. 首页展示
-- 英雄区域动画效果
-- 功能特色卡片展示
-- 优势对比表格
-- 滚动动画效果
-
-### 2. 用户认证
-- 登录/注册模态框
-- 表单验证和错误提示
-- 用户状态管理
-- 记住登录状态
-
-### 3. 控制台预览
-- 三大功能模块入口
-- 功能状态展示
-- 用户欢迎界面
-
-## 🎨 样式系统
-
-### 颜色变量
-```css
-:root {
-  --primary-500: #3b82f6;    /* 主色调 */
-  --secondary-500: #8b5cf6;  /* 辅助色 */
-  --accent-500: #f59e0b;     /* 强调色 */
-  /* ... 更多颜色变量 */
-}
-```
-
-### 组件样式
-- 按钮系统 (primary, outline, large等)
-- 卡片组件 (feature-card, dashboard-card等)
-- 模态框系统 (登录/注册)
-- 表单组件 (输入框, 复选框等)
-
-## 📱 响应式设计
-
-### 断点设置
-- 桌面端: > 768px
-- 平板端: 768px - 480px  
-- 移动端: < 480px
-
-### 适配特性
-- 导航栏自适应 (移动端汉堡菜单)
-- 网格布局响应式调整
-- 字体大小动态缩放
-- 触摸友好的交互设计
-
-## 🚀 性能优化
-
-- **资源优化**: 图片懒加载，CSS/JS压缩
-- **动画优化**: 使用transform和opacity属性
-- **缓存策略**: 合理的浏览器缓存设置
-- **代码分割**: Vite自动代码分割
+- **React 18**: 构建用户界面的 JavaScript 库
+- **Vite**: 下一代前端构建工具
+- **Tailwind CSS**: 原子化 CSS 框架
+- **Framer Motion**: 生产级动画库
+- **Lucide React**: 现代图标库
 
 ## 🔧 开发指南
 
-### 添加新页面
-1. 在`src/`目录下创建对应的HTML/CSS/JS文件
-2. 在`main.js`中添加路由逻辑
-3. 更新导航菜单
+### 添加新组件
+1. 在 `src/components/` 目录下创建 `.jsx` 文件
+2. 使用 Tailwind 类名编写样式
+3. 在 `App.jsx` 或其他父组件中引入
 
-### 自定义样式
-1. 在`main.css`中添加新的CSS规则
-2. 使用CSS变量保持一致性
-3. 遵循BEM命名规范
+### 样式定制
+- 全局颜色和字体配置在 `tailwind.config.js` 中
+- 自定义 CSS 变量在 `src/index.css` 中
 
-### 添加交互功能
-1. 在`main.js`中添加事件处理函数
-2. 使用模块化的代码结构
-3. 添加适当的错误处理
+### 状态管理
+目前使用 React 内置的 `useState` 和 `useEffect` 进行简单的状态管理。随着应用复杂度增加，可考虑引入 Context API 或 Zustand。
 
 ## 🎯 后续开发计划
 
-- [ ] 实现拍照生成视频功能界面
-- [ ] 开发AI知识对话聊天界面  
-- [ ] 添加绘画教学助手模块
-- [ ] 集成后端API接口
-- [ ] 添加更多动画效果
-- [ ] 优化移动端体验
+- [ ] 集成 React Router 实现多页面路由
+- [ ] 对接后端 API 实现真实登录注册
+- [ ] 开发文件上传组件 (用于拍照搜题)
+- [ ] 集成视频播放器组件
+- [ ] 添加 AI 对话聊天界面
 
 ## 📄 许可证
 
