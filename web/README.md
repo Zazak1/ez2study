@@ -1,103 +1,88 @@
 # Ez2Study Web Frontend
 
-Ez2Study AI智能学习视频生成平台的Web前端应用，基于 React + Vite + Tailwind CSS 构建。
+<div align="center">
+  <img src="../web/public/favicon.svg" width="100" height="100" alt="Logo">
+  <h3>Modern, Interactive, Intelligent.</h3>
+</div>
 
-## 🚀 快速开始
+这是 Ez2Study 的 Web 前端项目，基于 **React 18**、**Vite** 和 **Tailwind CSS** 构建。我们采用了全新的**珠光白 (Pearl White)** 设计语言，致力于提供极致流畅和愉悦的用户体验。
 
-### 环境要求
-- Node.js 16+
-- 现代浏览器 (Chrome, Firefox, Safari, Edge)
+## ✨ 特性概览
 
-### 安装依赖
-```bash
-cd web
-npm install
-```
+- **🎨 珠光白极简设计**：
+  - 摒弃了沉重的暗黑风格，采用清透的白色与柔和的蓝紫渐变。
+  - **玻璃拟态 (Glassmorphism)** 卡片，配合细腻的阴影处理，营造悬浮感。
+  - **流体光斑背景**：鼠标移动时，淡雅的彩色光晕会随之流动，增加页面的生命力。
 
-### 开发服务器
-```bash
-npm run dev
-```
-访问 http://localhost:5173
+- **🤖 交互式吉祥物**：
+  - 在登录/注册页面引入了 SVG 动画机器人。
+  - 具备 **Idle (闲置)**、**Focus (聚焦)** 和 **Blind (捂眼)** 三种状态，与用户输入实时互动。
 
-### 构建生产版本
-```bash
-npm run build
-```
+- **⚡️ 极致性能**：
+  - 基于 Vite 构建，秒级冷启动。
+  - 组件懒加载与代码分割。
 
-### 预览生产版本
-```bash
-npm run preview
-```
+## 🛠️ 技术栈详情
 
-## 📁 项目结构
+| 类别 | 技术 | 说明 |
+| --- | --- | --- |
+| **框架** | React 18 | 用于构建用户界面的 JavaScript 库 |
+| **构建工具** | Vite | 下一代前端工具链，极速 HMR |
+| **样式** | Tailwind CSS | 原子化 CSS 框架，高效构建定制设计 |
+| **动画** | Framer Motion | 生产级动画库，处理复杂的 SVG 和布局动画 |
+| **路由** | React Router 6 | 声明式路由管理 |
+| **图标** | Lucide React | 统一、美观的 SVG 图标库 |
+
+## 📂 目录结构说明
 
 ```
 web/
 ├── src/
-│   ├── components/      # UI 组件
-│   │   ├── Navbar.jsx   # 顶部导航
-│   │   ├── Hero.jsx     # 英雄区域
-│   │   ├── Features.jsx # 功能特性
-│   │   ├── Footer.jsx   # 页脚
-│   │   ├── LoginModal.jsx    # 登录模态框
-│   │   └── RegisterModal.jsx # 注册模态框
-│   ├── lib/             # 工具函数库
-│   ├── App.jsx          # 主应用组件
-│   ├── main.jsx         # 入口文件
-│   └── index.css        # 全局样式 (Tailwind imports)
-├── public/              # 静态资源
-│   ├── favicon.svg
-│   └── grid.svg
-├── index.html           # 主HTML文件
-├── package.json         # 项目配置
-├── vite.config.js       # Vite配置
-└── tailwind.config.js   # Tailwind配置
+│   ├── components/
+│   │   ├── AuthMascot.jsx    # 交互式吉祥物组件 (SVG动画核心)
+│   │   ├── MouseSpotlight.jsx # 鼠标跟随光斑特效
+│   │   ├── Navbar.jsx        # 响应式导航栏
+│   │   ├── Hero.jsx          # 首页首屏展示
+│   │   └── ...
+│   ├── pages/
+│   │   ├── Home.jsx          # 落地页 (Landing Page)
+│   │   └── Auth.jsx          # 认证页 (登录/注册)
+│   ├── index.css             # 全局样式 & Tailwind 指令
+│   ├── App.jsx               # 根组件 & 路由配置
+│   └── main.jsx              # 入口文件
+├── public/                   # 静态资源
+├── tailwind.config.js        # Tailwind 主题配置 (色彩/字体/阴影)
+└── vite.config.js            # Vite 配置
 ```
 
-## 🎨 设计特色
+## 🔧 开发与调试
 
-### 视觉风格
-- **科技感设计**: 深色背景 (`#0f0f23`) 配合高饱和度渐变光效
-- **玻璃拟态**: 使用 Backdrop Filter 实现磨砂玻璃质感
-- **流畅动画**: 集成 Framer Motion 实现复杂的交互动画
+### 1. 安装依赖
+```bash
+npm install
+```
 
-### 核心组件
-- **Navbar**: 响应式导航栏，支持滚动变色和移动端菜单
-- **Hero**: 带有动态微交互和入场动画的首屏展示
-- **Auth Modals**: 优雅的弹出式登录/注册窗口
-- **Features**: 网格布局的功能特性展示
+### 2. 启动开发服务器
+```bash
+npm run dev
+```
+默认运行在 `http://localhost:5173`。
 
-## 🛠️ 技术栈
+### 3. 样式定制
+所有的颜色变量和主题配置都集中在 `tailwind.config.js` 中。如果您想调整配色：
+- 修改 `theme.extend.colors` 下的 `primary`, `secondary`, `accent` 对象。
+- `bg-light-bg` 和 `text-text-main` 等语义化类名在 `index.css` 中定义。
 
-- **React 18**: 构建用户界面的 JavaScript 库
-- **Vite**: 下一代前端构建工具
-- **Tailwind CSS**: 原子化 CSS 框架
-- **Framer Motion**: 生产级动画库
-- **Lucide React**: 现代图标库
+## 🧩 主要组件解析
 
-## 🔧 开发指南
+### `AuthMascot.jsx`
+这是一个纯 SVG 组件，使用 Framer Motion 控制动画。
+- 接收 `mood` prop (`'idle' | 'focused' | 'blind'`)。
+- 通过 `variants` 定义不同情绪下的眼睛形状、手臂位置和头部旋转角度。
 
-### 添加新组件
-1. 在 `src/components/` 目录下创建 `.jsx` 文件
-2. 使用 Tailwind 类名编写样式
-3. 在 `App.jsx` 或其他父组件中引入
+### `MouseSpotlight.jsx`
+使用 `useMotionValue` 和 `useSpring` 追踪鼠标位置，创建一个大范围的模糊圆形渐变层 (`mix-blend-multiply`)，实现柔和的背景光效。
 
-### 样式定制
-- 全局颜色和字体配置在 `tailwind.config.js` 中
-- 自定义 CSS 变量在 `src/index.css` 中
+## 📄 License
 
-### 状态管理
-目前使用 React 内置的 `useState` 和 `useEffect` 进行简单的状态管理。随着应用复杂度增加，可考虑引入 Context API 或 Zustand。
-
-## 🎯 后续开发计划
-
-- [ ] 集成 React Router 实现多页面路由
-- [ ] 对接后端 API 实现真实登录注册
-- [ ] 开发文件上传组件 (用于拍照搜题)
-- [ ] 集成视频播放器组件
-- [ ] 添加 AI 对话聊天界面
-
-## 📄 许可证
-
-Apache License 2.0 - 详见根目录 [LICENSE](../LICENSE) 文件
+Apache-2.0

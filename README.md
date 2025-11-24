@@ -1,124 +1,160 @@
-# Ez2Study - AI智能学习视频生成平台
+<div align="center">
+  <h1>✨ Ez2Study</h1>
+  <p>
+    <strong>AI 智能学习视频生成平台</strong>
+    <br />
+    让知识触手可及，让学习不仅智能，更具温度。
+  </p>
 
-## 🎯 项目简介
+  <p>
+    <a href="#-核心功能">核心功能</a> •
+    <a href="#-技术架构">技术架构</a> •
+    <a href="#-快速开始">快速开始</a> •
+    <a href="#-开发计划">开发计划</a>
+  </p>
 
-Ez2Study是一站式AI智能学习视频生成平台，致力于突破现有教育工具的功能局限，通过AI技术实现从题目识别到知识点提取再到视频生成的全链路自动化。
+  <br />
 
-### 🔍 现有教育工具痛点
-- **洋葱学园**：侧重5-8分钟动画视频讲解，但需人工制作，效率低下
-- **智慧学堂**：主打AI互动却依赖固定问答库，缺乏个性化
-- **多数平台**：停留在智能题库、作业批改等基础功能层面
+  ![License](https://img.shields.io/github/license/Zazak1/ez2study?style=flat-square&color=6366f1)
+  ![React](https://img.shields.io/badge/React-18.2-61dafb?style=flat-square&logo=react&logoColor=black)
+  ![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38bdf8?style=flat-square&logo=tailwindcss)
+  ![Vite](https://img.shields.io/badge/Vite-5.0-646cff?style=flat-square&logo=vite)
+</div>
 
-### 💡 我们的解决方案
-通过整合**智能视频生成**、**AI知识教师**、**AI绘画教师**三大核心模块，实现：
-- 📸 **拍摄题目** → 🎬 **生成视频** → 🧠 **知识掌握** → 🎨 **技能拓展**
-- 用户仅需拍摄题目即可触发系统生成定制化学习视频
-- 融合知识传授与艺术技能培养的闭环学习体验
+<br />
 
-## 🏗️ 项目架构
+## 📖 项目简介
+
+**Ez2Study** 是一款致力于突破传统教育工具局限的一站式 AI 智能学习平台。我们不仅仅是生成视频，更是在重塑学习体验。
+
+在这个版本中，我们采用了全新的**珠光白极简科技设计语言**，融合了**玻璃拟态 (Glassmorphism)** 与**动态流体光效**，打造出通透、现代且富有沉浸感的交互界面。
+
+### 💡 为什么选择 Ez2Study？
+
+- **传统工具痛点**：人工制作视频效率低、题库僵化缺乏个性、交互体验枯燥。
+- **我们的突破**：
+  - 📸 **拍题即生成**：从题目识别到知识点提取，再到生成定制化视频，全链路 AI 自动化。
+  - 🌈 **沉浸式体验**：鼠标跟随光斑、动态吉祥物交互、流畅的页面转场，让学习过程充满惊喜。
+  - 🧠 **个性化导师**：不仅教你知识，更懂你的学习节奏。
+
+---
+
+## ✨ 核心功能
+
+### 1. 🎬 智能视频生成
+告别枯燥的文字解析。拍摄题目，系统将自动识别内容，分析知识结构，即时生成专属于你的讲解视频。
+
+### 2. 🔐 趣味认证交互
+我们重新设计了登录注册体验：
+- **独立认证页**：沉浸式的全屏体验。
+- **交互吉祥物**：一个可爱的 AI 小机器人会根据你的操作做出反应——当你输入密码时，它甚至会害羞地捂住眼睛！🙈
+
+### 3. 🤖 AI 知识教师
+基于大模型的智能问答系统，提供个性化学习路径推荐和深度的知识点解析，就像有一位 24 小时在线的私教。
+
+---
+
+## 🏗️ 技术架构
+
+项目采用现代化的前后端分离架构：
+
+```mermaid
+graph TD
+  User[用户] --> Web[Web 前端 (React)]
+  User --> App[移动端 (规划中)]
+  Web --> API[后端 API (FastAPI)]
+  API --> AI[AI 服务集群]
+  AI --> OCR[OCR 识别]
+  AI --> LLM[大语言模型]
+  AI --> Video[视频生成引擎]
+```
+
+### 📂 目录结构
 
 ```
 Ez2Study/
-├── web/                    # Web前端应用 (React + Vite)
+├── web/                # Web 前端 (React + Vite)
 │   ├── src/
-│   │   ├── components/    # UI 组件 (Navbar, Hero, Features等)
-│   │   ├── lib/           # 工具函数
-│   │   ├── App.jsx        # 主应用组件
-│   │   └── main.jsx       # 入口文件
-│   ├── public/            # 静态资源
-│   └── index.html         # HTML入口
-├── app/                    # 移动应用 (后期开发)
-└── ez2study/              # 后端服务 (API接口 - 规划中)
+│   │   ├── components/ # UI 组件 (Navbar, Hero, Mascot等)
+│   │   ├── pages/      # 页面路由 (Home, Auth)
+│   │   └── lib/        # 工具函数
+│   └── ...
+├── app/                # 移动端 (规划中)
+└── ez2study/          # 后端服务 (规划中)
 ```
 
-## ⭐ 核心功能
-
-### 1. 🎬 智能视频生成
-- 拍照识别题目内容
-- AI分析知识点结构
-- 自动生成定制化学习视频
-- 支持多种题型和学科
-
-### 2. 🤖 AI知识教师
-- 智能问答对话
-- 个性化学习路径推荐
-- 知识点深度解析
-- 学习进度跟踪
-
-### 3. 🎨 AI绘画教师 (规划中)
-- 艺术技能培养
-- 创意思维训练
-- 多媒体学习体验
-- 跨学科能力提升
-
-## 🌐 Web应用功能
-
-### 用户界面
-- ✨ **科技感介绍首页** - 深色主题，玻璃拟态风格，展示平台核心价值
-- 🔐 **用户注册登录** - 现代化模态框设计，流畅的交互体验
-- 🎛️ **功能选择面板** - 直观的三大核心功能入口
-
-### 核心体验
-- 📱 **响应式设计** - 完美适配桌面端和移动端
-- ⚡️ **高性能** - 基于 React 和 Vite 构建，秒级加载
-- 🎨 **沉浸式视觉** - 动态背景与微交互动画
+---
 
 ## 🛠️ 技术栈
 
 ### 前端 (Web)
-- **框架**: React 18 + Vite
-- **样式**: Tailwind CSS
-- **动画**: Framer Motion
-- **图标**: Lucide React
-- **语言**: JavaScript (ES6+)
+- **核心框架**: React 18 + Vite
+- **样式引擎**: Tailwind CSS (全新珠光白主题)
+- **路由管理**: React Router v6
+- **动画交互**: Framer Motion (手势、转场、SVG动画)
+- **图标库**: Lucide React
 
 ### 后端 (规划)
-- **语言**: Python + FastAPI
-- **AI服务**: OpenAI GPT-4 + 视频生成API
+- **API 框架**: Python FastAPI
+- **AI 模型**: OpenAI GPT-4 / Claude 3
 - **数据库**: PostgreSQL + Redis
-- **部署**: Docker + 云服务
-
-## 🚀 开发状态
-
-- [x] 项目初始化和Git仓库设置
-- [x] 项目架构设计和文档完善
-- [x] Web前端架构迁移 (React + Tailwind)
-- [x] 科技感首页设计和实现
-- [x] 用户认证界面 (UI实现)
-- [ ] 核心功能模块开发
-- [ ] 后端API接口设计
-- [ ] AI服务集成
-- [ ] 移动应用开发
-
-## 📋 开发计划
-
-### Phase 1: Web基础框架 (已完成)
-1. 搭建 React + Vite + Tailwind 开发环境
-2. 实现深色科技感 UI 设计系统
-3. 开发首页、导航、页脚及认证组件
-
-### Phase 2: 核心功能实现 (进行中)
-1. 拍照上传与预览功能
-2. AI 知识对话界面
-3. 视频播放器集成
-
-### Phase 3: 后端服务开发
-1. API接口设计和实现
-2. AI服务集成
-3. 数据库设计和优化
-
-### Phase 4: 移动应用开发
-1. 跨平台移动应用
-2. 功能同步和优化
-
-## 🤝 贡献指南
-
-欢迎提交Issue和Pull Request来改进项目！
-
-## 📄 许可证
-
-Apache License 2.0 - 详见 [LICENSE](LICENSE) 文件
+- **基础设施**: Docker + Kubernetes
 
 ---
 
-**让学习变得更智能，让知识触手可及！** 🌟
+## 🚀 快速开始
+
+### 前置要求
+- Node.js 16+
+- Git
+
+### 启动 Web 前端
+
+```bash
+# 1. 克隆仓库
+git clone https://github.com/Zazak1/ez2study.git
+
+# 2. 进入 web 目录
+cd ez2study/web
+
+# 3. 安装依赖
+npm install
+
+# 4. 启动开发服务器
+npm run dev
+```
+
+访问 `http://localhost:5173` 即可看到全新的珠光白界面。
+
+---
+
+## 📋 开发计划
+
+- [x] **Web 架构重构**：迁移至 React + Vite，实现组件化开发。
+- [x] **UI 风格焕新**：珠光白极简主题，鼠标光斑特效。
+- [x] **认证系统 UI**：独立登录页，集成交互式 SVG 吉祥物。
+- [ ] **核心业务对接**：实现拍照上传与后端 API 对接。
+- [ ] **AI 对话界面**：开发流式响应的聊天窗口。
+- [ ] **移动端适配**：开发 React Native 或 Flutter 版本。
+
+---
+
+## 🤝 贡献指南
+
+我们欢迎任何形式的贡献！无论是修复 Bug、提交新功能，还是优化文档。
+
+1. Fork 本仓库
+2. 创建你的特性分支 (`git checkout -b feature/AmazingFeature`)
+3. 提交你的修改 (`git commit -m 'Add some AmazingFeature'`)
+4. 推送到分支 (`git push origin feature/AmazingFeature`)
+5. 开启一个 Pull Request
+
+## 📄 许可证
+
+本项目采用 [Apache-2.0 许可证](LICENSE)。
+
+---
+
+<div align="center">
+  <p>Made with ❤️ by Ez2Study Team</p>
+</div>
