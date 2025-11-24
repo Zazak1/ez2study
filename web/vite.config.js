@@ -1,27 +1,15 @@
 import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import path from 'path'
 
+// https://vitejs.dev/config/
 export default defineConfig({
-  root: '.',
-  base: './',
-  server: {
-    port: 3000,
-    host: true,
-    open: true
+  plugins: [react()],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
   },
-  build: {
-    outDir: 'dist',
-    assetsDir: 'assets',
-    sourcemap: true,
-    minify: 'terser',
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['vite']
-        }
-      }
-    }
-  },
-  css: {
-    devSourcemap: true
-  }
+  root: './', // 确保根目录正确
+  publicDir: 'public',
 })
