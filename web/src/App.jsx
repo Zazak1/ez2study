@@ -1,78 +1,55 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Features from './components/Features';
-import Footer from './components/Footer';
-import LoginModal from './components/LoginModal';
-import RegisterModal from './components/RegisterModal';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import MouseSpotlight from './components/MouseSpotlight';
+import Home from './pages/Home';
+import Auth from './pages/Auth';
 
-function App() {
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+const AppContent = () => {
+  const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate loading
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
+    const timer = setTimeout(() => setIsLoading(false), 1500);
     return () => clearTimeout(timer);
   }, []);
 
   if (isLoading) {
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-dark-bg">
-        <div className="text-center">
-          <div className="w-20 h-20 mb-4 mx-auto animate-spin rounded-full border-4 border-primary-500 border-t-transparent"></div>
-          <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-secondary-500">
-            Ez2Study
-          </h2>
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-light-bg">
+        <div className="relative">
+          <div className="w-24 h-24 rounded-full border-4 border-primary-200 border-t-primary-600 animate-spin"></div>
+          <div className="absolute inset-0 flex items-center justify-center font-bold text-primary-600">EZ2</div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex flex-col relative overflow-hidden">
-      {/* Background Elements */}
+    <div className="min-h-screen flex flex-col relative overflow-x-hidden bg-light-bg text-text-main">
+      <MouseSpotlight />
+      
+      {/* Global Background Elements - Adjusted for Light Theme */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute top-0 left-0 w-full h-full bg-[url('/grid.svg')] opacity-[0.03]"></div>
-        <div className="absolute top-20 left-20 w-96 h-96 bg-primary-500/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-secondary-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-[url('/grid.svg')] opacity-[0.03] invert"></div>
+        <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-primary-100/50 rounded-full blur-[120px] animate-pulse-slow mix-blend-multiply"></div>
+        <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-secondary-100/50 rounded-full blur-[100px] animate-pulse-slow delay-700 mix-blend-multiply"></div>
+        <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-accent-100/50 rounded-full blur-[80px] animate-pulse-slow delay-1000 mix-blend-multiply"></div>
       </div>
 
-      <Navbar 
-        onLogin={() => setIsLoginOpen(true)} 
-        onRegister={() => setIsRegisterOpen(true)} 
-      />
-      
-      <main className="flex-grow relative z-10">
-        <Hero onStart={() => setIsRegisterOpen(true)} />
-        <Features />
-      </main>
-
-      <Footer />
-
-      <LoginModal 
-        isOpen={isLoginOpen} 
-        onClose={() => setIsLoginOpen(false)} 
-        onSwitchToRegister={() => {
-          setIsLoginOpen(false);
-          setIsRegisterOpen(true);
-        }}
-      />
-
-      <RegisterModal 
-        isOpen={isRegisterOpen} 
-        onClose={() => setIsRegisterOpen(false)}
-        onSwitchToLogin={() => {
-          setIsRegisterOpen(false);
-          setIsLoginOpen(true);
-        }}
-      />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/auth" element={<Auth />} />
+      </Routes>
     </div>
+  );
+};
+
+function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
   );
 }
 
 export default App;
-

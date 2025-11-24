@@ -3,30 +3,34 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 15, 15, 35;
-  --background-end-rgb: 22, 33, 62;
+  --foreground-rgb: 30, 41, 59;
 }
 
 @layer base {
   body {
-    @apply bg-dark-bg text-gray-100 antialiased;
-    background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+    @apply bg-light-bg text-text-main antialiased selection:bg-primary-100 selection:text-primary-900;
+    /* Pearl White / Soft Gradient Background */
+    background: radial-gradient(circle at top left, #f0f9ff 0%, #f5f3ff 50%, #ffffff 100%);
     min-height: 100vh;
   }
 }
 
 @layer utilities {
   .glass {
-    @apply bg-white/5 backdrop-blur-xl border border-white/10;
+    @apply bg-white/70 backdrop-blur-xl border border-white/40 shadow-pearl;
   }
   
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-secondary-500;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-600 via-secondary-500 to-accent-500;
+  }
+  
+  .btn-gradient {
+    @apply bg-gradient-to-r from-primary-500 to-secondary-500 hover:brightness-110 text-white shadow-lg shadow-primary-500/20 transition-all;
   }
 
-  .text-gradient-accent {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-red-500;
+  /* Pearl Effect Overlay */
+  .pearl-overlay {
+    background: linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.2) 100%);
   }
 }
 
@@ -36,15 +40,14 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
+  background: #f1f5f9;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(59, 130, 246, 0.5);
+  background: #cbd5e1;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(59, 130, 246, 0.7);
+  background: #94a3b8;
 }
-
