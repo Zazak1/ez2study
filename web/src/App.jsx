@@ -6,36 +6,47 @@ import Auth from './pages/Auth';
 import Login from './pages/Login';
 import Register from './pages/Register';
 
+const CozeLoader = () => (
+  <div className="fixed inset-0 z-50 bg-light-bg flex items-center justify-center">
+    <div className="global-spin-wrapper">
+      <svg viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" data-icon="spin">
+        <defs>
+          <linearGradient x1="0%" y1="100%" x2="100%" y2="100%" id="linearGradient-17">
+            <stop stopColor="currentColor" stopOpacity="0" offset="0%"></stop>
+            <stop stopColor="currentColor" stopOpacity="0.50" offset="39.9430698%"></stop>
+            <stop stopColor="currentColor" offset="100%"></stop>
+          </linearGradient>
+        </defs>
+        <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+          <rect fillOpacity="0.01" fill="none" x="0" y="0" width="36" height="36"></rect>
+          <path d="M34,18 C34,9.163444 26.836556,2 18,2 C11.6597233,2 6.18078805,5.68784135 3.59122325,11.0354951" stroke="url(#linearGradient-17)" strokeWidth="4" strokeLinecap="round"></path>
+        </g>
+      </svg>
+    </div>
+  </div>
+);
+
 const AppContent = () => {
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 1500);
+    // Simulate initial load time
+    const timer = setTimeout(() => setIsLoading(false), 1200);
     return () => clearTimeout(timer);
   }, []);
 
   if (isLoading) {
-    return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-light-bg">
-        <div className="relative">
-          <div className="w-24 h-24 rounded-full border-4 border-primary-200 border-t-primary-600 animate-spin"></div>
-          <div className="absolute inset-0 flex items-center justify-center font-bold text-primary-600">EZ2</div>
-        </div>
-      </div>
-    );
+    return <CozeLoader />;
   }
 
   return (
-    <div className="min-h-screen flex flex-col relative overflow-x-hidden bg-light-bg text-text-main">
-      <MouseSpotlight />
-      
-      {/* Global Background Elements - Adjusted for Light Theme */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute top-0 left-0 w-full h-full bg-[url('/grid.svg')] opacity-[0.03] invert"></div>
-        <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-primary-100/50 rounded-full blur-[120px] animate-pulse-slow mix-blend-multiply"></div>
-        <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-secondary-100/50 rounded-full blur-[100px] animate-pulse-slow delay-700 mix-blend-multiply"></div>
-        <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-accent-100/50 rounded-full blur-[80px] animate-pulse-slow delay-1000 mix-blend-multiply"></div>
+    <div className="min-h-screen flex flex-col relative overflow-x-hidden bg-light-bg text-text-main selection:bg-primary-100 selection:text-primary-900 font-sans">
+      {/* Coze-like subtle background */}
+      <div className="fixed inset-0 z-0 pointer-events-none bg-[#f7f8fa]">
+        {/* Very subtle gradients, less intrusive than before */}
+        <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-primary-50/60 rounded-full blur-[120px] mix-blend-multiply animate-pulse-slow"></div>
+        <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-blue-50/60 rounded-full blur-[120px] mix-blend-multiply animate-pulse-slow delay-1000"></div>
       </div>
 
       <Routes>
