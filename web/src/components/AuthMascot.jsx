@@ -96,12 +96,6 @@ const AuthMascot = ({ mood = 'idle' }) => {
 
       </motion.svg>
       
-      {/* CSS Glow effect for eyes */}
-      <style jsx>{`
-        .glow-eye {
-          filter: drop-shadow(0 0 5px #22d3ee);
-        }
-      `}</style>
     </div>
   );
 };

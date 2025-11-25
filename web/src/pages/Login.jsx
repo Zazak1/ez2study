@@ -5,12 +5,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import AuthMascot from '../components/AuthMascot';
 
 const Login = () => {
-  const [focusedField, setFocusedField] = useState('idle');
+  const [mascotMood, setMascotMood] = useState('idle');
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate('/dashboard');
+    navigate('/');
   };
 
   return (
@@ -26,7 +26,7 @@ const Login = () => {
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-md bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 shadow-2xl shadow-vibrant-purple/20"
       >
-        <AuthMascot focusedField={focusedField} />
+        <AuthMascot mood={mascotMood} />
         
         <div className="text-center mb-8">
           <h2 className="text-3xl font-bold text-white mb-2">欢迎回来</h2>
@@ -40,8 +40,8 @@ const Login = () => {
               <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-vibrant-cyan transition-colors" size={20} />
               <input 
                 type="email" 
-                onFocus={() => setFocusedField('email')}
-                onBlur={() => setFocusedField('idle')}
+                onFocus={() => setMascotMood('focused')}
+                onBlur={() => setMascotMood('idle')}
                 className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-10 pr-4 text-white placeholder-gray-500 focus:outline-none focus:border-vibrant-cyan focus:ring-1 focus:ring-vibrant-cyan transition-all"
                 placeholder="your@email.com"
                 required
@@ -58,8 +58,8 @@ const Login = () => {
               <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-vibrant-purple transition-colors" size={20} />
               <input 
                 type="password" 
-                onFocus={() => setFocusedField('password')}
-                onBlur={() => setFocusedField('idle')}
+                onFocus={() => setMascotMood('blind')}
+                onBlur={() => setMascotMood('idle')}
                 className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-10 pr-4 text-white placeholder-gray-500 focus:outline-none focus:border-vibrant-purple focus:ring-1 focus:ring-vibrant-purple transition-all"
                 placeholder="••••••••"
                 required
