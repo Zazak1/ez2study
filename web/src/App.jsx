@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import MouseSpotlight from './components/MouseSpotlight';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Auth from './pages/Auth';
 import Login from './pages/Login';
@@ -27,11 +26,9 @@ const CozeLoader = () => (
 );
 
 const AppContent = () => {
-  const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate initial load time
     const timer = setTimeout(() => setIsLoading(false), 1200);
     return () => clearTimeout(timer);
   }, []);
@@ -43,8 +40,7 @@ const AppContent = () => {
   return (
     <div className="min-h-screen flex flex-col relative overflow-x-hidden bg-light-bg text-text-main selection:bg-primary-100 selection:text-primary-900 font-sans">
       {/* Coze-like subtle background */}
-      <div className="fixed inset-0 z-0 pointer-events-none bg-[#f7f8fa]">
-        {/* Very subtle gradients, less intrusive than before */}
+      <div className="fixed inset-0 z-0 pointer-events-none bg-light-bg">
         <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-primary-50/60 rounded-full blur-[120px] mix-blend-multiply animate-pulse-slow"></div>
         <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-blue-50/60 rounded-full blur-[120px] mix-blend-multiply animate-pulse-slow delay-1000"></div>
       </div>
