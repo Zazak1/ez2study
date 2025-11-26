@@ -1,160 +1,249 @@
-<div align="center">
-  <h1>✨ Ez2Study</h1>
-  <p>
-    <strong>AI 智能学习视频生成平台</strong>
-    <br />
-    让知识触手可及，让学习不仅智能，更具温度。
-  </p>
+# Ez2Study - AI 智能学习平台
 
-  <p>
-    <a href="#-核心功能">核心功能</a> •
-    <a href="#-技术架构">技术架构</a> •
-    <a href="#-快速开始">快速开始</a> •
-    <a href="#-开发计划">开发计划</a>
-  </p>
+一个集成了工作流可视化开发平台的 AI 智能学习系统，类似于 Dify.ai 的架构设计。
 
-  <br />
+## 📋 项目概览
 
-  ![License](https://img.shields.io/github/license/Zazak1/ez2study?style=flat-square&color=6366f1)
-  ![React](https://img.shields.io/badge/React-18.2-61dafb?style=flat-square&logo=react&logoColor=black)
-  ![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38bdf8?style=flat-square&logo=tailwindcss)
-  ![Vite](https://img.shields.io/badge/Vite-5.0-646cff?style=flat-square&logo=vite)
-</div>
-
-<br />
-
-## 📖 项目简介
-
-**Ez2Study** 是一款致力于突破传统教育工具局限的一站式 AI 智能学习平台。我们不仅仅是生成视频，更是在重塑学习体验。
-
-在这个版本中，我们采用了全新的**珠光白极简科技设计语言**，融合了**玻璃拟态 (Glassmorphism)** 与**动态流体光效**，打造出通透、现代且富有沉浸感的交互界面。
-
-### 💡 为什么选择 Ez2Study？
-
-- **传统工具痛点**：人工制作视频效率低、题库僵化缺乏个性、交互体验枯燥。
-- **我们的突破**：
-  - 📸 **拍题即生成**：从题目识别到知识点提取，再到生成定制化视频，全链路 AI 自动化。
-  - 🌈 **沉浸式体验**：鼠标跟随光斑、动态吉祥物交互、流畅的页面转场，让学习过程充满惊喜。
-  - 🧠 **个性化导师**：不仅教你知识，更懂你的学习节奏。
-
----
-
-## ✨ 核心功能
-
-### 1. 🎬 智能视频生成
-告别枯燥的文字解析。拍摄题目，系统将自动识别内容，分析知识结构，即时生成专属于你的讲解视频。
-
-### 2. 🔐 趣味认证交互
-我们重新设计了登录注册体验：
-- **独立认证页**：沉浸式的全屏体验。
-- **交互吉祥物**：一个可爱的 AI 小机器人会根据你的操作做出反应——当你输入密码时，它甚至会害羞地捂住眼睛！🙈
-
-### 3. 🤖 AI 知识教师
-基于大模型的智能问答系统，提供个性化学习路径推荐和深度的知识点解析，就像有一位 24 小时在线的私教。
-
----
+Ez2Study 是一个现代化的 AI 驱动学习平台，包含：
+- 🎨 **现代化前端界面**：基于 React + Tailwind CSS 的响应式设计
+- 🔄 **工作流可视化开发**：类似 Dify.ai 的可视化工作流编辑器
+- 🤖 **智能体构建**：通过语言化描述和提示词构建完整智能体
+- 🔌 **多模型支持**：支持 OpenAI、Anthropic、Cohere 等多个 AI 供应商
+- 📝 **提示词管理**：强大的提示词模板系统
 
 ## 🏗️ 技术架构
 
-项目采用现代化的前后端分离架构：
-
-```mermaid
-graph TD
-  User[用户] --> Web[Web 前端 (React)]
-  User --> App[移动端 (规划中)]
-  Web --> API[后端 API (FastAPI)]
-  API --> AI[AI 服务集群]
-  AI --> OCR[OCR 识别]
-  AI --> LLM[大语言模型]
-  AI --> Video[视频生成引擎]
 ```
-
-### 📂 目录结构
-
+┌─────────────────────────────────────────────┐
+│         前端 (React + Vite)                  │
+│   - 登录注册页面                             │
+│   - 可视化工作流编辑器                        │
+│   - 智能体管理界面                           │
+│   - 提示词模板管理                           │
+└──────────────┬──────────────────────────────┘
+               │ REST API
+┌──────────────▼──────────────────────────────┐
+│         后端 (FastAPI)                       │
+│   - 工作流引擎                               │
+│   - AI 模型集成                              │
+│   - 提示词渲染器                             │
+│   - 执行历史追踪                             │
+└──────────────┬──────────────────────────────┘
+               │
+┌──────────────▼──────────────────────────────┐
+│    数据层 (PostgreSQL + Redis)               │
+│   - 工作流定义存储                           │
+│   - 执行记录存储                             │
+│   - 缓存和队列                               │
+└─────────────────────────────────────────────┘
 ```
-Ez2Study/
-├── web/                # Web 前端 (React + Vite)
-│   ├── src/
-│   │   ├── components/ # UI 组件 (Navbar, Hero, Mascot等)
-│   │   ├── pages/      # 页面路由 (Home, Auth)
-│   │   └── lib/        # 工具函数
-│   └── ...
-├── app/                # 移动端 (规划中)
-└── ez2study/          # 后端服务 (规划中)
-```
-
----
-
-## 🛠️ 技术栈
-
-### 前端 (Web)
-- **核心框架**: React 18 + Vite
-- **样式引擎**: Tailwind CSS (全新珠光白主题)
-- **路由管理**: React Router v6
-- **动画交互**: Framer Motion (手势、转场、SVG动画)
-- **图标库**: Lucide React
-
-### 后端 (规划)
-- **API 框架**: Python FastAPI
-- **AI 模型**: OpenAI GPT-4 / Claude 3
-- **数据库**: PostgreSQL + Redis
-- **基础设施**: Docker + Kubernetes
-
----
 
 ## 🚀 快速开始
 
-### 前置要求
-- Node.js 16+
-- Git
-
-### 启动 Web 前端
+### 前端
 
 ```bash
-# 1. 克隆仓库
-git clone https://github.com/Zazak1/ez2study.git
-
-# 2. 进入 web 目录
-cd ez2study/web
-
-# 3. 安装依赖
+cd web
 npm install
-
-# 4. 启动开发服务器
 npm run dev
 ```
 
-访问 `http://localhost:5173` 即可看到全新的珠光白界面。
+访问: http://localhost:5173
 
----
+### 后端
 
-## 📋 开发计划
+#### 使用 Docker Compose（推荐）
 
-- [x] **Web 架构重构**：迁移至 React + Vite，实现组件化开发。
-- [x] **UI 风格焕新**：珠光白极简主题，鼠标光斑特效。
-- [x] **认证系统 UI**：独立登录页，集成交互式 SVG 吉祥物。
-- [ ] **核心业务对接**：实现拍照上传与后端 API 对接。
-- [ ] **AI 对话界面**：开发流式响应的聊天窗口。
-- [ ] **移动端适配**：开发 React Native 或 Flutter 版本。
+```bash
+cd backend
+docker-compose up -d
+```
 
----
+#### 手动部署
 
-## 🤝 贡献指南
+```bash
+cd backend
+pip install -r requirements.txt
+cp .env.example .env
+# 编辑 .env 配置文件
+alembic upgrade head
+uvicorn app.main:app --reload
+```
 
-我们欢迎任何形式的贡献！无论是修复 Bug、提交新功能，还是优化文档。
+访问 API 文档: http://localhost:8000/docs
 
-1. Fork 本仓库
-2. 创建你的特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交你的修改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 开启一个 Pull Request
+## 📚 文档
+
+- [后端架构文档](backend/ARCHITECTURE.md)
+- [快速开始指南](backend/QUICKSTART.md)
+- [前端 README](web/README.md)
+- [后端 README](backend/README.md)
+
+## ✨ 主要功能
+
+### 1. 工作流可视化开发
+
+- 拖拽式节点编辑器
+- 支持多种节点类型：
+  - 🎯 LLM 模型节点
+  - 📝 提示词节点
+  - 🔀 条件判断节点
+  - 🔁 循环节点
+  - 🌐 HTTP 请求节点
+  - 💻 代码执行节点
+  - 🔧 工具调用节点
+- 实时执行和调试
+- 执行历史追踪
+
+### 2. AI 模型集成
+
+支持多个 AI 模型供应商：
+- **OpenAI**: GPT-3.5, GPT-4
+- **Anthropic**: Claude 3 (Opus, Sonnet, Haiku)
+- **Cohere**: Command 系列
+
+统一的 API 接口，轻松切换模型。
+
+### 3. 智能体系统
+
+- 通过自然语言描述创建智能体
+- 关联工作流实现复杂逻辑
+- 对话式交互界面
+- 可配置的系统提示词
+
+### 4. 提示词模板管理
+
+- 创建可复用的提示词模板
+- 支持变量插值
+- 版本控制
+- 使用统计
+
+## 🎨 前端技术栈
+
+- **框架**: React 18
+- **构建工具**: Vite
+- **样式**: Tailwind CSS
+- **路由**: React Router v6
+- **动画**: Framer Motion
+- **图标**: Lucide React
+
+## 🔧 后端技术栈
+
+- **框架**: FastAPI
+- **数据库**: PostgreSQL
+- **ORM**: SQLAlchemy (Async)
+- **缓存**: Redis
+- **迁移**: Alembic
+- **AI SDK**: OpenAI, Anthropic, Cohere
+
+## 📦 项目结构
+
+```
+.
+├── web/                    # 前端项目
+│   ├── src/
+│   │   ├── components/    # React 组件
+│   │   ├── pages/         # 页面组件
+│   │   └── index.css      # 全局样式
+│   └── package.json
+│
+├── backend/               # 后端项目
+│   ├── app/
+│   │   ├── api/          # API 路由
+│   │   ├── core/         # 核心配置
+│   │   ├── models/       # 数据库模型
+│   │   ├── schemas/      # Pydantic 模型
+│   │   ├── services/     # 业务逻辑
+│   │   └── main.py       # 应用入口
+│   ├── alembic/          # 数据库迁移
+│   ├── requirements.txt
+│   └── docker-compose.yml
+│
+└── README.md
+```
+
+## 🔑 环境变量配置
+
+### 后端 `.env` 示例
+
+```env
+# 数据库
+DATABASE_URL=postgresql+asyncpg://user:password@localhost:5432/ez2study_db
+
+# Redis
+REDIS_URL=redis://localhost:6379/0
+
+# AI 供应商
+OPENAI_API_KEY=sk-...
+ANTHROPIC_API_KEY=sk-ant-...
+COHERE_API_KEY=...
+
+# JWT
+SECRET_KEY=your-secret-key
+JWT_SECRET_KEY=your-jwt-secret-key
+
+# CORS
+BACKEND_CORS_ORIGINS=http://localhost:5173,http://localhost:3000
+```
+
+## 🌟 核心特性
+
+### 工作流引擎
+
+- ✅ DAG（有向无环图）执行
+- ✅ 异步执行支持
+- ✅ 变量上下文管理
+- ✅ 错误处理和重试
+- ✅ 执行历史记录
+- ✅ 性能监控
+
+### AI 供应商管理
+
+- ✅ 统一的接口抽象
+- ✅ 多供应商支持
+- ✅ 自动格式转换
+- ✅ 使用量统计
+- ✅ 连接测试
+
+### 提示词系统
+
+- ✅ 模板创建和管理
+- ✅ 变量插值
+- ✅ 版本控制
+- ✅ 使用统计
+- ✅ 公开/私有模式
+
+## 🛣️ 开发路线图
+
+- [x] 基础架构搭建
+- [x] 工作流引擎实现
+- [x] AI 模型集成
+- [x] 提示词管理
+- [x] RESTful API
+- [ ] 用户认证和授权
+- [ ] 可视化工作流编辑器（前端）
+- [ ] WebSocket 实时通信
+- [ ] 工作流模板市场
+- [ ] 团队协作功能
+- [ ] 监控和分析面板
+
+## 🤝 贡献
+
+欢迎贡献！请随时提交 Pull Request。
 
 ## 📄 许可证
 
-本项目采用 [Apache-2.0 许可证](LICENSE)。
+Apache-2.0
+
+## 👥 团队
+
+Ez2Study Team
 
 ---
 
-<div align="center">
-  <p>Made with ❤️ by Ez2Study Team</p>
-</div>
+**注意**: 这是一个学习和研究项目。在生产环境使用前，请确保：
+1. 配置强密钥和密码
+2. 实现完整的认证授权系统
+3. 添加速率限制
+4. 使用代码执行沙箱
+5. 进行安全审计
