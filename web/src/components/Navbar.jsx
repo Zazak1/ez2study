@@ -1,20 +1,41 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Menu, X, GraduationCap, ChevronDown } from 'lucide-react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Menu, X, GraduationCap, ChevronDown, LogOut } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
     };
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    
+    // Check login status
+    const checkLogin = () => {
+      setIsLoggedIn(!!localStorage.getItem('token'));
+    };
+    checkLogin();
+    
+    // Listen for storage events to update state across tabs or on login/logout
+    window.addEventListener('storage', checkLogin);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('storage', checkLogin);
+    };
+  }, [location]); // Re-check on location change
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+    navigate('/');
+  };
 
   return (
     <nav 
@@ -52,18 +73,31 @@ const Navbar = () => {
 
         {/* Action Buttons */}
         <div className="hidden md:flex items-center gap-3">
-          <button 
-            onClick={() => navigate('/login')}
-            className="px-5 py-2 rounded-lg text-[14px] font-medium text-coze-text-main hover:text-coze-primary hover:bg-gray-50 transition-all"
-          >
-            登录
-          </button>
-          <button 
-            onClick={() => navigate('/register')}
-            className="btn-primary text-[14px]"
-          >
-            免费注册
-          </button>
+          {isLoggedIn ? (
+            <button 
+              onClick={handleLogout}
+              className="px-5 py-2 rounded-lg text-[14px] font-medium text-coze-text-main hover:text-coze-primary hover:bg-gray-50 transition-all flex items-center gap-2"
+              title="退出登录"
+            >
+              <LogOut size={18} />
+              退出登录
+            </button>
+          ) : (
+            <>
+              <button 
+                onClick={() => navigate('/login')}
+                className="px-5 py-2 rounded-lg text-[14px] font-medium text-coze-text-main hover:text-coze-primary hover:bg-gray-50 transition-all"
+              >
+                登录
+              </button>
+              <button 
+                onClick={() => navigate('/register')}
+                className="btn-primary text-[14px]"
+              >
+                免费注册
+              </button>
+            </>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -82,7 +116,7 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white border-b border-coze-border overflow-hidden"
+            className="md:hidden bg-white border-b border-coze-border overflow-hidden shadow-lg"
           >
             <div className="flex flex-col p-4 gap-2">
               {['产品功能', '解决方案', '资源中心', '定价'].map((item, i) => (
@@ -96,6 +130,18 @@ const Navbar = () => {
                 </a>
               ))}
               <div className="h-px bg-gray-100 my-2"></div>
+              
+              {isLoggedIn ? (
+                 <div className="flex flex-col gap-2 p-2">
+                    <button 
+                      onClick={() => { handleLogout(); setIsMobileMenuOpen(false); }}
+                      className="py-3 rounded-lg text-center text-red-500 bg-red-50 hover:bg-red-100 font-medium transition-colors flex items-center justify-center gap-2"
+                    >
+                      <LogOut size={18} />
+                      退出登录
+                    </button>
+                 </div>
+              ) : (
               <div className="grid grid-cols-2 gap-3 p-2">
                 <button 
                   onClick={() => { navigate('/login'); setIsMobileMenuOpen(false); }}
@@ -110,6 +156,7 @@ const Navbar = () => {
                   注册
                 </button>
               </div>
+              )}
             </div>
           </motion.div>
         )}

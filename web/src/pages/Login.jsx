@@ -1,14 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { X, Mail } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { X, Mail, AlertCircle, Loader2 } from 'lucide-react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { authApi } from '../api/client';
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [formData, setFormData] = useState({
+    username: '', // 这里其实是邮箱，但在 OAuth form 中字段名为 username
+    password: ''
+  });
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(location.state?.message || '');
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+    if (error) setError('');
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setError('');
+    setSuccessMessage('');
+
+    try {
+      // 这里的 username 字段传递的是用户的邮箱，因为后端是这么验证的
+      const response = await authApi.login(formData.username, formData.password);
+      localStorage.setItem('token', response.access_token);
     navigate('/');
+    } catch (err) {
+      console.error(err);
+      setError(err.detail || '登录失败，请检查邮箱和密码');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -32,6 +63,20 @@ const Login = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-text-main mb-8 md:mb-12 text-center">
             登录以探索更多
           </h2>
+
+          {error && (
+            <div className="mb-6 p-3 bg-red-50 border border-red-100 rounded-lg flex items-center gap-2 text-red-600 text-sm">
+              <AlertCircle size={16} />
+              <span>{error}</span>
+            </div>
+          )}
+
+          {successMessage && (
+            <div className="mb-6 p-3 bg-green-50 border border-green-100 rounded-lg flex items-center gap-2 text-green-600 text-sm">
+              <AlertCircle size={16} />
+              <span>{successMessage}</span>
+            </div>
+          )}
 
           <div className="space-y-4">
             <button className="w-full py-2.5 px-4 border border-slate-200 rounded-full flex items-center justify-center gap-3 text-text-main hover:bg-slate-50 transition-colors font-medium bg-white">
@@ -58,6 +103,9 @@ const Login = () => {
             <div className="group relative">
               <input
                 type="email"
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
                 className="peer w-full pt-6 pb-2 px-4 border border-slate-200 rounded-lg bg-white text-text-main focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all placeholder-transparent"
                 placeholder="邮箱"
                 id="email"
@@ -67,13 +115,16 @@ const Login = () => {
                 htmlFor="email"
                 className="absolute left-4 top-4 text-slate-500 text-base transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-1.5 peer-focus:text-xs peer-focus:text-primary-500 peer-[:not(:placeholder-shown)]:top-1.5 peer-[:not(:placeholder-shown)]:text-xs"
               >
-                手机号、邮箱或用户名
+                邮箱
               </label>
             </div>
 
             <div className="group relative">
               <input
                 type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
                 className="peer w-full pt-6 pb-2 px-4 border border-slate-200 rounded-lg bg-white text-text-main focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all placeholder-transparent"
                 placeholder="密码"
                 id="password"
@@ -89,9 +140,10 @@ const Login = () => {
 
             <button
               type="submit"
-              className="w-full py-3 px-4 bg-text-main text-white font-bold rounded-full hover:bg-black/90 transition-all shadow-lg active:scale-[0.98]"
+              disabled={isLoading}
+              className="w-full py-3 px-4 bg-text-main text-white font-bold rounded-full hover:bg-black/90 transition-all shadow-lg active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
-              下一步
+              {isLoading ? <Loader2 size={20} className="animate-spin" /> : '登录'}
             </button>
 
             <button
