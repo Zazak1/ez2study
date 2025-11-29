@@ -1,0 +1,15 @@
+{
+  "apiBaseUrl": "https://api.example.com/v1",
+  "announcement": {
+    "enabled": true,
+    "title": "欢迎使用 EduAI",
+    "message": "数字人讲解功能已上线，快来体验实时课堂。",
+    "level": "info"
+  },
+  "featureFlags": {
+    "digitalHuman": true,
+    "cameraSearch": true
+  },
+  "updatedAt": "2025-11-29T00:00:00.000Z"
+}
+

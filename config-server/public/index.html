@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>EduAI 配置控制台</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      :root {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui;
+        color: #111827;
+        background: #f3f4f6;
+      }
+      body {
+        margin: 0;
+        padding: 40px 16px;
+        display: flex;
+        justify-content: center;
+      }
+      .panel {
+        width: min(960px, 100%);
+        background: #fff;
+        padding: 32px;
+        border-radius: 24px;
+        box-shadow: 0 30px 60px rgba(15, 23, 42, 0.12);
+      }
+      h1 {
+        margin-top: 0;
+        font-size: 28px;
+      }
+      label {
+        font-weight: 600;
+        font-size: 14px;
+        display: block;
+        margin-bottom: 8px;
+        color: #4b5563;
+      }
+      input,
+      textarea,
+      select {
+        width: 100%;
+        padding: 12px 14px;
+        font-size: 14px;
+        border-radius: 12px;
+        border: 1px solid #e5e7eb;
+        box-sizing: border-box;
+        transition: border 0.2s;
+      }
+      input:focus,
+      textarea:focus,
+      select:focus {
+        border-color: #6366f1;
+        outline: none;
+      }
+      textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+      .grid {
+        display: grid;
+        gap: 20px;
+      }
+      .row {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .row > div {
+        flex: 1;
+        min-width: 200px;
+      }
+      button {
+        border: none;
+        padding: 14px 18px;
+        border-radius: 14px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      button.primary {
+        background: #4f46e5;
+        color: #fff;
+      }
+      button.secondary {
+        background: #e5e7eb;
+        color: #111827;
+      }
+      .status {
+        margin-top: 16px;
+        padding: 12px 16px;
+        border-radius: 12px;
+        display: none;
+      }
+      .status.success {
+        display: block;
+        background: #dcfce7;
+        color: #166534;
+      }
+      .status.error {
+        display: block;
+        background: #fee2e2;
+        color: #991b1b;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="panel">
+      <h1>EduAI 配置管理</h1>
+      <p>通过下方表单实时调整 App 侧的 API 地址、公告通知以及功能开关。</p>
+      <div class="grid">
+        <div>
+          <label>管理员 Token（只在当前浏览器保存）</label>
+          <input id="token" type="password" placeholder="默认 change-me，建议部署前修改" />
+        </div>
+        <div>
+          <label>API Base URL</label>
+          <input id="apiBaseUrl" placeholder="https://api.xxx.com/v1" />
+        </div>
+        <div class="row">
+          <div>
+            <label>公告标题</label>
+            <input id="announcementTitle" />
+          </div>
+          <div>
+            <label>公告级别</label>
+            <select id="announcementLevel">
+              <option value="info">Info</option>
+              <option value="warning">Warning</option>
+              <option value="critical">Critical</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label>公告内容</label>
+          <textarea id="announcementMessage"></textarea>
+        </div>
+        <div class="row">
+          <div>
+            <label>是否显示公告</label>
+            <select id="announcementEnabled">
+              <option value="true">True</option>
+              <option value="false">False</option>
+            </select>
+          </div>
+          <div>
+            <label>数字人功能开关</label>
+            <select id="flagDigitalHuman">
+              <option value="true">开启</option>
+              <option value="false">关闭</option>
+            </select>
+          </div>
+          <div>
+            <label>拍照搜题开关</label>
+            <select id="flagCameraSearch">
+              <option value="true">开启</option>
+              <option value="false">关闭</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <button class="secondary" id="refreshBtn">刷新数据</button>
+          <button class="primary" id="saveBtn">保存配置</button>
+        </div>
+        <div class="status" id="statusBar"></div>
+      </div>
+    </div>
+    <script>
+      const $ = (id) => document.getElementById(id);
+      const statusBar = $('statusBar');
+
+      const showStatus = (message, type = 'success') => {
+        statusBar.textContent = message;
+        statusBar.className = `status ${type}`;
+      };
+
+      const fillForm = (config) => {
+        $('apiBaseUrl').value = config.apiBaseUrl || '';
+        $('announcementTitle').value = config.announcement?.title || '';
+        $('announcementMessage').value = config.announcement?.message || '';
+        $('announcementLevel').value = config.announcement?.level || 'info';
+        $('announcementEnabled').value = String(config.announcement?.enabled ?? true);
+        $('flagDigitalHuman').value = String(config.featureFlags?.digitalHuman ?? true);
+        $('flagCameraSearch').value = String(config.featureFlags?.cameraSearch ?? true);
+      };
+
+      const fetchConfig = async () => {
+        showStatus('加载中...', 'success');
+        const res = await fetch('/api/config');
+        const data = await res.json();
+        fillForm(data);
+        showStatus('配置已加载', 'success');
+      };
+
+      const saveConfig = async () => {
+        const token = $('token').value || 'change-me';
+        const payload = {
+          apiBaseUrl: $('apiBaseUrl').value,
+          announcement: {
+            title: $('announcementTitle').value,
+            message: $('announcementMessage').value,
+            level: $('announcementLevel').value,
+            enabled: $('announcementEnabled').value === 'true',
+          },
+          featureFlags: {
+            digitalHuman: $('flagDigitalHuman').value === 'true',
+            cameraSearch: $('flagCameraSearch').value === 'true',
+          },
+        };
+
+        const res = await fetch('/api/config', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-admin-token': token,
+          },
+          body: JSON.stringify(payload),
+        });
+
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.message || '保存失败');
+        }
+        const data = await res.json();
+        fillForm(data);
+        showStatus('保存成功', 'success');
+      };
+
+      $('refreshBtn').addEventListener('click', (e) => {
+        e.preventDefault();
+        fetchConfig().catch((error) => showStatus(error.message, 'error'));
+      });
+
+      $('saveBtn').addEventListener('click', (e) => {
+        e.preventDefault();
+        saveConfig().catch((error) => showStatus(error.message, 'error'));
+      });
+
+      fetchConfig().catch((error) => showStatus(error.message, 'error'));
+    </script>
+  </body>
+</html>
+
